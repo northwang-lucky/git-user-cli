@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import { getPackageJson, printErr } from '../utils';
+import $add from './add';
 import $init from './init';
 import $switch from './switch';
 
@@ -14,5 +15,6 @@ const { description, version } = packageJson;
 program.name('gitusr').description(description).version(version);
 $init.install(program);
 $switch.install(program);
+$add.install(program);
 
 program.parse();
