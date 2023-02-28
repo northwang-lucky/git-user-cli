@@ -1,0 +1,57 @@
+{
+  "name": "gitusr",
+  "version": "0.0.0",
+  "description": "A CLI that allows you to switch git users.",
+  "packageManager": "pnpm@7.1.0",
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northwang-lucky/gitusr.git"
+  },
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "gitusr": "bin/gitusr/index.js"
+  },
+  "scripts": {
+    "postinstall": "rimraf ./.husky && husky install && pnpm husky:pre-commit-hook && pnpm husky:commit-msg-hook",
+    "link:global": "pnpm link --global",
+    "build": "rimraf bin && tsc",
+    "commit": "cz",
+    "commit:lint": "commitlint --edit",
+    "husky:pre-commit-hook": "husky add .husky/pre-commit \"pnpm lint-staged\"",
+    "husky:commit-msg-hook": "husky add .husky/commit-msg \"pnpm commit:lint\"",
+    "lint-staged": "lint-staged",
+    "lint-staged:format": "prettier -w",
+    "lint-staged:eslint": "eslint"
+  },
+  "dependencies": {
+    "commander": "10.0.0",
+    "fs-extra": "11.1.0",
+    "inquirer": "8.2.5",
+    "shelljs": "0.8.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.4.2",
+    "@commitlint/config-conventional": "17.4.2",
+    "@types/fs-extra": "11.0.1",
+    "@types/inquirer": "8.2.5",
+    "@types/node": "18.11.0",
+    "@types/shelljs": "0.8.11",
+    "commitizen": "4.3.0",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "8.22.0",
+    "eslint-config-airbnb-typescript-prettier": "5.0.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.1.0",
+    "prettier": "2.5.1",
+    "rimraf": "4.1.2",
+    "standard-version": "9.5.0",
+    "typescript": "4.4.4"
+  }
+}
