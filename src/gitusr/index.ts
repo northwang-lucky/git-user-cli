@@ -3,6 +3,7 @@ import { program } from 'commander';
 import { getPackageJson, printErr } from '../utils';
 import $add from './add';
 import $init from './init';
+import $list from './list';
 import $switch from './switch';
 
 const packageJson = getPackageJson();
@@ -13,8 +14,9 @@ if (!packageJson) {
 
 const { description, version } = packageJson;
 program.name('gitusr').description(description).version(version);
-$init.install(program);
-$switch.install(program);
 $add.install(program);
+$init.install(program);
+$list.install(program);
+$switch.install(program);
 
 program.parse();
