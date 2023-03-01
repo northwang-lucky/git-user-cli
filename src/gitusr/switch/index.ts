@@ -17,7 +17,7 @@ const $switch: SubCommand = {
   install: program => {
     program
       .command('switch')
-      .description('Switch user in a git repo or globally')
+      .description('switch user in a git repo or globally')
       .option('-g, --global', 'Switch global user')
       .option('-n, --name [name]', 'Switch user by its name (lowest priority)')
       .option('-e, --email [email]', 'Switch user by its email (medium priority)')

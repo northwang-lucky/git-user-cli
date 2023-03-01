@@ -14,7 +14,7 @@ const $init: SubCommand = {
   install: program => {
     program
       .command('init')
-      .description('Read the user information from the git global configuration file to initialize the CLI')
+      .description('read the user information from the git global configuration file to initialize the CLI')
       .option('-f, --force', 'Force commands to run at any cost')
       .action(async (options: Init.Options) => {
         const globalUser: User = getUser() ?? {

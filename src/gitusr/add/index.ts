@@ -7,7 +7,7 @@ const $add: SubCommand = {
   install: program => {
     program
       .command('add')
-      .description('Add and save a user')
+      .description('add and save a user')
       .action(async () => {
         const [err, userList] = getUserList();
         if (err) {
