@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 import { SubCommand } from '../../types';
-import { defineQuestions, getUserList, printErr, setUserList } from '../../utils';
+import { defineQuestions, getUserList, hasInitialized, printErr, setUserList } from '../../utils';
 import { Add } from './types';
 
 const $add: SubCommand = {
@@ -15,8 +15,8 @@ const $add: SubCommand = {
           return;
         }
 
-        if (userList.length === 0) {
-          printErr('No saved users. Do you forget to run "gitusr init"?');
+        // Check length of userList which comes from user-list.json
+        if (!hasInitialized(userList)) {
           return;
         }
 

@@ -1,21 +1,22 @@
 import * as sh from 'shelljs';
 import { User } from '../user-list/types';
+import { GetUserOptions, PrintUserInfoOptions, SetUserOptions } from './types';
 
-export function getUser(): User | null {
+export function getUser({ global = false }: GetUserOptions = {}): User | null {
   const user: User = {
     name: '',
     email: '',
   };
 
   // Get global user.name by git
-  let result = sh.exec('git config --global --get user.name', { silent: true });
+  let result = sh.exec(`git config ${global ? '--global ' : ''}--get user.name`, { silent: true });
   if (result.code !== 0) {
     return null;
   }
   user.name = result.stdout.trim();
 
   // Get global user.email by git
-  result = sh.exec('git config --global --get user.email', { silent: true });
+  result = sh.exec(`git config ${global ? '--global ' : ''}--get user.email`, { silent: true });
   if (result.code !== 0) {
     return null;
   }
@@ -24,14 +25,19 @@ export function getUser(): User | null {
   return user;
 }
 
-export function setUser(type: 'name' | 'email', value: string, global = false): Error | null {
+export function setUser(type: 'name' | 'email', value: string, { global = false }: SetUserOptions = {}): Error | null {
   const cmd = `git config ${global ? '--global ' : ''}user.${type} "${value}"`;
   const result = sh.exec(cmd);
   return result.code !== 0 ? new Error(result.stderr) : null;
 }
 
-export function printSuccessUserInfo({ name, email }: User, global = false): void {
+export function printUserInfo(
+  { name, email }: User,
+  { global = false, showSuccess = false }: PrintUserInfoOptions = {}
+): void {
   console.log(
-    `Success!\nYour ${global ? 'global' : 'repo'} git user is:\n\nuser.name  = ${name}\nuser.email = ${email}`
+    `${showSuccess ? 'Success!\n' : ''}Your ${
+      global ? 'global' : 'repo'
+    } git user is:\n\nuser.name  = ${name}\nuser.email = ${email}`
   );
 }

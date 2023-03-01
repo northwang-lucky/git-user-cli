@@ -1,5 +1,3 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import * as inquirer from 'inquirer';
 import { SubCommand } from '../../types';
 import {
@@ -7,8 +5,10 @@ import {
   fillSpace2Len,
   getLongestLen,
   getUserList,
+  hasInitialized,
+  isGitRepo,
   printErr,
-  printSuccessUserInfo,
+  printUserInfo,
   setUser,
 } from '../../utils';
 import { Switch } from './types';
@@ -23,11 +23,8 @@ const $switch: SubCommand = {
       .option('-e, --email [email]', 'Switch user by its email (medium priority)')
       .option('-i, --index [index]', 'Specifies the target user.name to switch (highest priority)')
       .action(async ({ global, name, email, index }: Switch.Options) => {
-        const workPath = process.cwd();
-        const isGitRepo = fs.existsSync(path.resolve(workPath, './.git'));
-
         // Check whether it located at a git repo or with --global
-        if (!isGitRepo && !global) {
+        if (!isGitRepo() && !global) {
           printErr('The current directory is not a git repository!');
           return;
         }
@@ -40,8 +37,7 @@ const $switch: SubCommand = {
         }
 
         // Check length of userList which comes from user-list.json
-        if (userList.length === 0) {
-          printErr('No saved users. Do you forget to run "gitusr init"?');
+        if (!hasInitialized(userList)) {
           return;
         }
 
@@ -85,19 +81,19 @@ const $switch: SubCommand = {
           return;
         }
 
-        err = setUser('name', target.name, global);
+        err = setUser('name', target.name, { global });
         if (err) {
           printErr(err);
           return;
         }
 
-        err = setUser('email', target.email, global);
+        err = setUser('email', target.email, { global });
         if (err) {
           printErr(err);
           return;
         }
 
-        printSuccessUserInfo(target);
+        printUserInfo(target, { global, showSuccess: true });
       });
   },
 };

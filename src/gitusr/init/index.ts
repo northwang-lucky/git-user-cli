@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer';
 import * as sh from 'shelljs';
 import { SubCommand } from '../../types';
-import { defineQuestions, getUser, getUserList, printErr, printSuccessUserInfo, setUserList, User } from '../../utils';
+import { defineQuestions, getUser, getUserList, printErr, printUserInfo, setUserList, User } from '../../utils';
 import { Init } from './types';
 
 const userHomePath = process.env.HOME || process.env.USERPROFILE;
@@ -17,7 +17,7 @@ const $init: SubCommand = {
       .description('read the user information from the git global configuration file to initialize the CLI')
       .option('-f, --force', 'Force commands to run at any cost')
       .action(async (options: Init.Options) => {
-        const globalUser: User = getUser() ?? {
+        const globalUser: User = getUser({ global: true }) ?? {
           name: '',
           email: '',
         };
@@ -79,7 +79,7 @@ const $init: SubCommand = {
         }
 
         setUserList([globalUser]);
-        printSuccessUserInfo(globalUser);
+        printUserInfo(globalUser, { global: true, showSuccess: true });
       });
   },
 };

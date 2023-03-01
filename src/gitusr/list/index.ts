@@ -1,5 +1,5 @@
 import { SubCommand } from '../../types';
-import { fillSpace2Len, getLongestLen, getUserList, printErr } from '../../utils';
+import { fillSpace2Len, getLongestLen, getUserList, hasInitialized, printErr } from '../../utils';
 
 const $list: SubCommand = {
   install: program => {
@@ -10,6 +10,11 @@ const $list: SubCommand = {
         const [err, userList] = getUserList();
         if (err) {
           printErr(err);
+          return;
+        }
+
+        // Check length of userList which comes from user-list.json
+        if (!hasInitialized(userList)) {
           return;
         }
 
