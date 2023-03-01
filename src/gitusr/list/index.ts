@@ -5,6 +5,7 @@ const $list: SubCommand = {
   install: program => {
     program
       .command('list')
+      .alias('ls')
       .description('show all saved users')
       .action(() => {
         const [err, userList] = getUserList();
