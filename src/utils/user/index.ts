@@ -32,6 +32,6 @@ export function setUser(type: 'name' | 'email', value: string, global = false): 
 
 export function printSuccessUserInfo({ name, email }: User, global = false): void {
   console.log(
-    `Success!\nYour ${global ? 'global' : 'repo'} git user is:\n\nuser.name = ${name}\nuser.email = ${email}`
+    `Success!\nYour ${global ? 'global' : 'repo'} git user is:\n\nuser.name  = ${name}\nuser.email = ${email}`
   );
 }
