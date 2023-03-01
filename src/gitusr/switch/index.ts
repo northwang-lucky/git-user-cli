@@ -18,10 +18,10 @@ const $switch: SubCommand = {
     program
       .command('switch')
       .description('switch user in a git repo or globally')
-      .option('-g, --global', 'Switch global user')
-      .option('-n, --name [name]', 'Switch user by its name (lowest priority)')
-      .option('-e, --email [email]', 'Switch user by its email (medium priority)')
-      .option('-i, --index [index]', 'Specifies the target user.name to switch (highest priority)')
+      .option('-g, --global', 'switch global user')
+      .option('-n, --name [name]', 'switch user by its name (lowest priority)')
+      .option('-e, --email [email]', 'switch user by its email (medium priority)')
+      .option('-i, --index [index]', 'specifies the target user.name to switch (highest priority)')
       .action(async ({ global, name, email, index }: Switch.Options) => {
         // Check whether it located at a git repo or with --global
         if (!isGitRepo() && !global) {
