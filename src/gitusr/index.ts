@@ -5,7 +5,7 @@ import $add from './add';
 import $current from './current';
 import $init from './init';
 import $list from './list';
-import $switch from './switch';
+import $use from './use';
 
 const packageJson = getPackageJson();
 if (!packageJson) {
@@ -19,6 +19,6 @@ $add.install(program);
 $current.install(program);
 $init.install(program);
 $list.install(program);
-$switch.install(program);
+$use.install(program);
 
 program.parse();

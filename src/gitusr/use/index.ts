@@ -11,18 +11,18 @@ import {
   printUserInfo,
   setUser,
 } from '../../utils';
-import { Switch } from './types';
+import { Use } from './types';
 
-const $switch: SubCommand = {
+const $use: SubCommand = {
   install: program => {
     program
-      .command('switch')
+      .command('use')
       .description('switch user in a git repo or globally')
       .option('-g, --global', 'switch global user')
       .option('-n, --name [name]', 'switch user by its name (lowest priority)')
       .option('-e, --email [email]', 'switch user by its email (medium priority)')
       .option('-i, --index [index]', 'specifies the target user.name to switch (highest priority)')
-      .action(async ({ global, name, email, index }: Switch.Options) => {
+      .action(async ({ global, name, email, index }: Use.Options) => {
         // Check whether it located at a git repo or with --global
         if (!isGitRepo() && !global) {
           printErr('The current directory is not a git repository!');
@@ -54,7 +54,7 @@ const $switch: SubCommand = {
           }
 
           const longestLen = getLongestLen(userList, u => u.name);
-          const questions = defineQuestions<Switch.Questions, Switch.Answers>({
+          const questions = defineQuestions<Use.Questions, Use.Answers>({
             userIndex: {
               type: 'list',
               message: 'Please select a user:',
@@ -98,4 +98,4 @@ const $switch: SubCommand = {
   },
 };
 
-export default $switch;
+export default $use;

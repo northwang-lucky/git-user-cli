@@ -1,7 +1,7 @@
 import { ListQuestion } from 'inquirer';
 import { ExtractAnswers, ExtractQuestions } from '../../utils';
 
-export namespace Switch {
+export namespace Use {
   export type Options = {
     global?: boolean;
     name?: string;
