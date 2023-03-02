@@ -16,7 +16,8 @@
     "bin"
   ],
   "bin": {
-    "gitusr": "bin/gitusr/index.js"
+    "gitusr": "bin/gitusr/index.js",
+    "git-clone": "bin/git-clone/index.js"
   },
   "scripts": {
     "postinstall": "rimraf ./.husky && husky install && pnpm husky:pre-commit-hook && pnpm husky:commit-msg-hook",
