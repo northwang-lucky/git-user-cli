@@ -28,6 +28,7 @@ const $add: SubCommand = {
           userEmail: {
             type: 'input',
             message: 'Please enter the user.email:',
+            validate: (input: string) => /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(input),
           },
         });
 
@@ -41,7 +42,7 @@ const $add: SubCommand = {
 
         userList.push({ name: userName, email: userEmail });
         setUserList(userList);
-        console.log('Success!');
+        console.log(`Success! User (name: ${userName} | email: ${userEmail}) has been saved!`);
       });
   },
 };
