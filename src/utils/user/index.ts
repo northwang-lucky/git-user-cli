@@ -1,6 +1,9 @@
+import * as inquirer from 'inquirer';
 import * as sh from 'shelljs';
+import { fillSpace2Len, getLongestLen } from '../basic';
+import { defineQuestions } from '../define-questions';
 import { User } from '../user-list/types';
-import { GetUserOptions, PrintUserInfoOptions, SetUserOptions } from './types';
+import { GetTargetUser, GetUserOptions, PrintUserInfoOptions, SetUserOptions } from './types';
 
 export function getUser({ global = false }: GetUserOptions = {}): User | null {
   const user: User = {
@@ -40,4 +43,46 @@ export function printUserInfo(
       global ? 'global' : 'repo'
     } git user is:\n\nuser.name  = ${name}\nuser.email = ${email}`
   );
+}
+
+export async function getTargetUser(
+  userList: User[],
+  { index, email, name }: GetTargetUser.Options
+): Promise<[User | undefined, number]> {
+  // If an option, one of --name, --email or --index, is not undefined, use it to switch
+  if (index) {
+    const idx = Number(index);
+    return [userList[idx], idx];
+  }
+  if (email) {
+    const idx = userList.findIndex(u => u.email === email);
+    return [idx > 0 ? userList[idx] : undefined, idx];
+  }
+  if (name) {
+    const idx = userList.findIndex(u => u.name === name);
+    return [idx > 0 ? userList[idx] : undefined, idx];
+  }
+
+  const longestLen = getLongestLen(userList, u => u.name);
+  const questions = defineQuestions<GetTargetUser.Questions, GetTargetUser.Answers>({
+    userIndex: {
+      type: 'list',
+      message: 'Please select a user:',
+      choices: userList
+        // Format user.name to same length
+        .map(u => {
+          u.name = fillSpace2Len(u.name, longestLen);
+          return u;
+        })
+        .map((u, idx) => ({
+          name: `Name: ${u.name} | Email: ${u.email}`,
+          value: idx,
+        })),
+    },
+  });
+
+  // Select a user and apply changes
+  const answers = await inquirer.prompt(questions);
+  const idx = Number(answers.userIndex);
+  return [userList[idx], idx];
 }

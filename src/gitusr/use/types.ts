@@ -1,6 +1,3 @@
-import { ListQuestion } from 'inquirer';
-import { ExtractAnswers, ExtractQuestions } from '../../utils';
-
 export namespace Use {
   export type Options = {
     global?: boolean;
@@ -8,12 +5,4 @@ export namespace Use {
     email?: string;
     index?: string;
   };
-
-  type QuestionsAndAnswers = {
-    userIndex: [ListQuestion, number];
-  };
-
-  export type Questions = ExtractQuestions<QuestionsAndAnswers>;
-
-  export type Answers = ExtractAnswers<QuestionsAndAnswers>;
 }
