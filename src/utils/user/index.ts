@@ -68,16 +68,11 @@ export async function getTargetUser(
     userIndex: {
       type: 'list',
       message: 'Please select a user:',
-      choices: userList
+      choices: userList.map((u, idx) => {
         // Format user.name to same length
-        .map(u => {
-          u.name = fillSpace2Len(u.name, longestLen);
-          return u;
-        })
-        .map((u, idx) => ({
-          name: `Name: ${u.name} | Email: ${u.email}`,
-          value: idx,
-        })),
+        const nm = fillSpace2Len(u.name, longestLen);
+        return { name: `Name: ${nm} | Email: ${u.email}`, value: idx };
+      }),
     },
   });
 
