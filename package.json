@@ -20,12 +20,13 @@
     "git-clone": "bin/git-clone/index.js"
   },
   "scripts": {
-    "postinstall": "rimraf ./.husky && husky install && pnpm husky:pre-commit-hook && pnpm husky:commit-msg-hook",
+    "postinstall": "if-env NODE_ENV=production && node ./bin/welcome.js || pnpm husky:install",
     "link:global": "pnpm link --global",
     "build": "rimraf bin && tsc",
     "ver": "standard-version",
     "commit": "cz",
     "commit:lint": "commitlint --edit",
+    "husky:install": "rimraf ./.husky && husky install && pnpm husky:pre-commit-hook && pnpm husky:commit-msg-hook",
     "husky:pre-commit-hook": "husky add .husky/pre-commit \"pnpm lint-staged\"",
     "husky:commit-msg-hook": "husky add .husky/commit-msg \"pnpm commit:lint\"",
     "lint-staged": "lint-staged",
@@ -50,6 +51,7 @@
     "eslint": "8.22.0",
     "eslint-config-airbnb-typescript-prettier": "5.0.0",
     "husky": "8.0.3",
+    "if-env": "1.0.4",
     "lint-staged": "13.1.0",
     "prettier": "2.5.1",
     "rimraf": "4.1.2",
