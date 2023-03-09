@@ -23,6 +23,7 @@
     "postinstall": "rimraf ./.husky && husky install && pnpm husky:pre-commit-hook && pnpm husky:commit-msg-hook",
     "link:global": "pnpm link --global",
     "build": "rimraf bin && tsc",
+    "ver": "standard-version",
     "commit": "cz",
     "commit:lint": "commitlint --edit",
     "husky:pre-commit-hook": "husky add .husky/pre-commit \"pnpm lint-staged\"",
