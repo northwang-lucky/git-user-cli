@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/northwang-lucky/gitusr/compare/v0.0.2...v0.0.3) (2023-03-09)
+
+### Bug Fixes
+
+- **posinstall:** fix unexpected install ([90561c1](https://github.com/northwang-lucky/gitusr/commit/90561c15675b9f664bdbf9f62f35c30077841bac))
+
 ### [0.0.2](https://github.com/northwang-lucky/gitusr/compare/v0.0.1...v0.0.2) (2023-03-09)
 
 ### Bug Fixes
