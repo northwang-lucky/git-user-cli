@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer';
 import * as sh from 'shelljs';
 import { SubCommand } from '../../types';
-import { defineQuestions, getTargetUser, getUserList, hasInitialized, isGitRepo, loading, printErr } from '../../utils';
+import { defineQuestions, getTargetUser, getUserList, hasInitialized, isGitRepo, printErr } from '../../utils';
 import { Replace } from './types';
 
 const $replace: SubCommand = {
@@ -10,9 +10,9 @@ const $replace: SubCommand = {
       .command('replace')
       .description('replace name and email with a new user')
       .argument('<target-email>', 'the email of the target commit to replace')
-      .option('--with-name', 'git user name that used to find the new user')
-      .option('--with-email', 'git user email that used to find the new user')
-      .option('--with-index', 'index of user that used to find the new user')
+      .option('--with-name [name]', 'git user name that used to find the new user')
+      .option('--with-email [email]', 'git user email that used to find the new user')
+      .option('--with-index [index]', 'index of user that used to find the new user')
       .action(async (targetEmail: string, { withName, withEmail, withIndex }: Replace.Options) => {
         // Check whether it located at a git repo
         if (!isGitRepo()) {
@@ -43,7 +43,7 @@ const $replace: SubCommand = {
         }
 
         // Run replacing code
-        const scripts = `
+        const scripts = /* sh */ `
           git filter-branch --env-filter '
 
           OLD_EMAIL="${targetEmail}"
@@ -60,11 +60,10 @@ const $replace: SubCommand = {
               export GIT_AUTHOR_NAME="$CORRECT_NAME"
               export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
           fi
-          ' --tag-name-filter cat -- --branches --tags
+          ' --force --tag-name-filter cat -- --branches --tags
         `;
-        loading.start('Replacing');
+        console.log('Replacing...');
         let result = sh.exec(scripts, { silent: true });
-        loading.stop();
         if (result.code !== 0) {
           printErr(result.stderr);
           return;

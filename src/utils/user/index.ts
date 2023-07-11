@@ -56,11 +56,11 @@ export async function getTargetUser(
   }
   if (email) {
     const idx = userList.findIndex(u => u.email === email);
-    return [idx > 0 ? userList[idx] : undefined, idx];
+    return [idx > -1 ? userList[idx] : undefined, idx];
   }
   if (name) {
     const idx = userList.findIndex(u => u.name === name);
-    return [idx > 0 ? userList[idx] : undefined, idx];
+    return [idx > -1 ? userList[idx] : undefined, idx];
   }
 
   const longestLen = getLongestLen(userList, u => u.name);
