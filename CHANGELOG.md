@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/northwang-lucky/gitusr/compare/v0.0.4-alpha.0...v0.0.4) (2023-07-11)
+
+### Bug Fixes
+
+- index error ([3844ec8](https://github.com/northwang-lucky/gitusr/commit/3844ec8019204833677b120d25ba59039115c714))
+
 ### [0.0.4-alpha.0](https://github.com/northwang-lucky/gitusr/compare/v0.0.3...v0.0.4-alpha.0) (2023-07-11)
 
 ### Features
