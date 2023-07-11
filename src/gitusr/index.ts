@@ -6,6 +6,7 @@ import $current from './current';
 import $init from './init';
 import $list from './list';
 import $remove from './remove';
+import $replace from './replace';
 import $use from './use';
 
 const packageJson = getPackageJson();
@@ -21,6 +22,7 @@ $current.install(program);
 $init.install(program);
 $list.install(program);
 $remove.install(program);
+$replace.install(program);
 $use.install(program);
 
 program.parse();
