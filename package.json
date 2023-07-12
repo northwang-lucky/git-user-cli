@@ -2,10 +2,10 @@
   "name": "git-user-cli",
   "version": "0.0.4",
   "description": "A CLI that allows you to switch git users.",
-  "packageManager": "pnpm@7.1.0",
+  "packageManager": "pnpm@8.6.5",
   "engines": {
     "node": ">= 14.0.0",
-    "npm": ">= 6.0.0"
+    "pnpm": ">= 8.0.0"
   },
   "license": "MIT",
   "repository": {
