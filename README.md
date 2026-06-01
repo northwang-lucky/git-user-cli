@@ -1,5 +1,9 @@
 # gitusr
 
+> **⚠️ 该项目已废弃 (Deprecated)**
+>
+> 请迁移至新项目：[https://github.com/northwang-lucky/gitusr](https://github.com/northwang-lucky/gitusr)
+
 A CLI that allows you to switch git users.
 
 ## Usage
